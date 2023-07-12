@@ -6,6 +6,7 @@ using Unity.Entities;
 using Unity.NetCode;
 using UnityEngine;
 
+// request command def
 public struct GoInGameRequest : IRpcCommand {
 }
 
@@ -25,9 +26,12 @@ public partial struct GoInGameClientSystem : ISystem {
     public void OnUpdate(ref SystemState state) {
         var commandBuffer = new EntityCommandBuffer(Allocator.Temp);
         foreach (var (id, entity) in SystemAPI.Query<RefRO<NetworkId>>().WithEntityAccess().WithNone<NetworkStreamInGame>()) {
+            // mark as being in-game, before NetworkStreamInGame Added, no commands(Client)/snapshots(Server) will be sent
             commandBuffer.AddComponent<NetworkStreamInGame>(entity);
             var req = commandBuffer.CreateEntity();
             commandBuffer.AddComponent<GoInGameRequest>(req);
+            // send command needed
+            // TargetConnection refers to the remote connection that send command to, or broadcast when it is null
             commandBuffer.AddComponent(req, new SendRpcCommandRequest { TargetConnection = entity});
         }
 
