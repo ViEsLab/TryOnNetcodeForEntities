@@ -4,14 +4,14 @@ using System.ComponentModel;
 using Unity.Entities;
 using UnityEngine;
 
-public struct Cube : IComponentData {
+public struct TestCube : IComponentData {
 }
 
 [DisallowMultipleComponent]
 public class CubeAuthoring : MonoBehaviour {
     class Baker : Baker<CubeAuthoring> {
         public override void Bake(CubeAuthoring authoring) {
-            Cube component = default(Cube);
+            TestCube component = default(TestCube);
             AddComponent(component);
         }
     }

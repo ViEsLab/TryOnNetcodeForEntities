@@ -6,7 +6,7 @@ using UnityEngine;
 [UnityEngine.Scripting.Preserve]
 public class Game : ClientServerBootstrap {
     public override bool Initialize(string defaultWorldName) {
-        // set auto connect feature port
+        // 设置自动连接接口
         AutoConnectPort = 7979;
         return base.Initialize(defaultWorldName);
     }
