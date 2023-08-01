@@ -72,7 +72,7 @@ public partial struct GoInGameServerSystem : ISystem {
             UnityEngine.Debug.Log($"'{worldName}' setting connection '{networkId.Value}' to in game, spawning a Ghost '{prefabName}' for them!");
 
             var player = commandBuffer.Instantiate(prefab);
-            commandBuffer.SetComponent(player, new GhostOwner { NetworkId = networkId.Value});
+            commandBuffer.SetComponent(player, new GhostOwner { NetworkId = networkId.Value });
 
             // 把player添加到Linked entity group，断开连接后可以自动销毁
             commandBuffer.AppendToBuffer(reqSrc.ValueRO.SourceConnection, new LinkedEntityGroup { Value = player });
