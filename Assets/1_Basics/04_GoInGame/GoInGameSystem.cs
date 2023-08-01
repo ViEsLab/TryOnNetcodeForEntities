@@ -19,7 +19,7 @@ namespace Samples.HelloNetcode {
             FixedString32Bytes worldName = World.Name;
 
             // 连接建立后立刻标记 in-game
-            // Is name fixed?
+            // 为什么要缓存这个EntityQuery？
             Entities.
                 WithName("NewConnectionGoInGame").
                 WithStoreEntityQueryInField(ref m_NewConnections).
