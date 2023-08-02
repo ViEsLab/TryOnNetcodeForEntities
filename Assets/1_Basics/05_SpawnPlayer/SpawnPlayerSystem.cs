@@ -27,11 +27,13 @@ namespace Samples.HelloNetcode {
         protected override void OnUpdate() {
             Entity prefab = SystemAPI.GetSingleton<Spawner>().Player;
             EntityCommandBuffer commandBuffer = new EntityCommandBuffer(Allocator.Temp);
-            Entities.
-                WithName("SpawnPlayer").
-                WithStoreEntityQueryInField(ref m_NewPlayers).
-                WithNone<PlayerSpawned>().
-                ForEach((Entity connectionEntity, in NetworkStreamInGame req, in NetworkId networkId) => {
+
+            // 因为是查找所有已连接的玩家，所以查找时需要包含 ForEach 中的所有 Component
+            Entities
+                .WithName("SpawnPlayer")
+                .WithStoreEntityQueryInField(ref m_NewPlayers)
+                .WithNone<PlayerSpawned>()
+                .ForEach((Entity connectionEntity, in NetworkStreamInGame req, in NetworkId networkId) => {
                     Debug.Log($"为连接 {networkId} 创建玩家");
                     Entity player = commandBuffer.Instantiate(prefab);
 
