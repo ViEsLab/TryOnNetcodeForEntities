@@ -59,6 +59,7 @@ namespace Samples.HelloNetcode {
         protected override void OnUpdate() {
             float movementSpeed = SystemAPI.Time.DeltaTime * 3;
             SystemAPI.TryGetSingleton<ClientServerTickRate>(out var tickRate);
+            tickRate.ResolveDefaults();
             // 保持跳跃表现在不同的模拟帧率下结果相同
             int velocityDecStep = 60 / tickRate.SimulationTickRate;
             // 排除不需要模拟的实体
